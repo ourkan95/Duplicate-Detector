@@ -1,5 +1,3 @@
-
-```
 # Hotel Deduplication & URL Mismatch Checker
 
 This project detects **duplicate hotels** and checks for **URL–name mismatches** in hotel datasets.  
@@ -17,9 +15,8 @@ It combines multiple similarity signals to increase accuracy:
 All files remain in a single folder (no package/module imports required):
 
 ```
-
-
-├── Dockerfile 
+.
+├── Dockerfile
 ├── main.py
 ├── address_parsing.py
 ├── address_similarity.py
@@ -28,9 +25,7 @@ All files remain in a single folder (no package/module imports required):
 ├── mismatch_checker.py
 ├── hotels_with_prices.xlsx   # sample input dataset
 └── (output Excel files will be created here)
-
-
-````
+```
 
 ---
 
@@ -42,10 +37,9 @@ First ensure you have **Docker installed** (Linux, macOS, or Windows WSL2).
 ### 1. Build the image
 ```bash
 docker build -t hotel-dedup .
-````
+```
 
 ### 2. Run the pipeline
-
 Mount the current folder into the container so that outputs are saved locally:
 
 ```bash
@@ -53,7 +47,6 @@ docker run --rm -v $(pwd):/app hotel-dedup python main.py
 ```
 
 On Windows PowerShell:
-
 ```powershell
 docker run --rm -v ${PWD}:/app hotel-dedup python main.py
 ```
@@ -63,28 +56,26 @@ docker run --rm -v ${PWD}:/app hotel-dedup python main.py
 ## 🧠 Models & Dependencies
 
 The following models are downloaded automatically on first run:
-
-* intfloat/multilingual-e5-large (address embeddings)
-* paraphrase-multilingual-MiniLM-L12-v2 (name embeddings)
+- intfloat/multilingual-e5-large (address embeddings)
+- paraphrase-multilingual-MiniLM-L12-v2 (name embeddings)
 
 Key Python libraries (already installed via Dockerfile):
-
-* pandas, numpy, openpyxl
-* torch, sentence-transformers
-* scikit-learn, rapidfuzz
-* postal (libpostal bindings)
-* tabulate
+- pandas, numpy, openpyxl
+- torch, sentence-transformers
+- scikit-learn, rapidfuzz
+- postal (libpostal bindings)
+- tabulate
 
 ---
 
 ## 🚀 Pipeline Steps
 
-1. Address parsing → normalize using libpostal
-2. Address similarity → embeddings + numeric + weighted score
-3. Geo similarity → Haversine distance → similarity score
-4. Name similarity → hybrid BERT + TF-IDF + fuzzy score
-5. Combine results → weighted average for duplicate candidates
-6. URL mismatch check → Trivago name vs. dealer slug
+1. Address parsing → normalize using libpostal  
+2. Address similarity → embeddings + numeric + weighted score  
+3. Geo similarity → Haversine distance → similarity score  
+4. Name similarity → hybrid BERT + TF-IDF + fuzzy score  
+5. Combine results → weighted average for duplicate candidates  
+6. URL mismatch check → Trivago name vs. dealer slug  
 
 ---
 
@@ -92,9 +83,9 @@ Key Python libraries (already installed via Dockerfile):
 
 After running main.py, the following Excel files will appear:
 
-* final_similarity_candidates.xlsx → potential duplicate pairs
-* url_hybrid_similarity.xlsx → URL–name similarity scores
-* hybrid_mismatched_candidates.xlsx → flagged mismatches
+- final_similarity_candidates.xlsx → potential duplicate pairs  
+- url_hybrid_similarity.xlsx → URL–name similarity scores  
+- hybrid_mismatched_candidates.xlsx → flagged mismatches  
 
 ---
 
@@ -110,10 +101,6 @@ Console output will show preview tables, and results will be saved as Excel file
 
 ## ⚠️ Notes
 
-* Running the pipeline the first time may take several minutes due to model downloads.
-* If GPU is available inside Docker, PyTorch will use it automatically (otherwise CPU).
-* The project is designed for experimentation; thresholds and weights can be tuned inside main.py or the respective modules.
-
-```
-
-
+- Running the pipeline the first time may take several minutes due to model downloads.  
+- If GPU is available inside Docker, PyTorch will use it automatically (otherwise CPU).  
+- The project is designed for experimentation; thresholds and weights can be tuned inside main.py or the respective modules.
