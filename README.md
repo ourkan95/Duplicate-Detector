@@ -18,16 +18,25 @@ All files remain in a single folder (no package/module imports required):
 
 ```
 
-.
-├── Dockerfile
+
+├── Dockerfile 
+
 ├── main.py
+
 ├── address_parsing.py
+
 ├── address_similarity.py
+
 ├── geo_similarity.py
+
 ├── bert_fuzzy_name_similarity.py
+
 ├── mismatch_checker.py
+
 ├── hotels_with_prices.xlsx   # sample input dataset
+
 └── (output Excel files will be created here)
+
 
 ````
 
